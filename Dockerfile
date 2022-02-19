@@ -1,6 +1,6 @@
 FROM golang:alpine3.13 as builder
 
-ARG version=1.15.0
+ARG version=1.8.6
 
 RUN apk update && apk add --no-cache \
   `# install tools` \
@@ -10,7 +10,7 @@ RUN apk update && apk add --no-cache \
 
 WORKDIR /coredns
 
-RUN git clone --recursive --depth 1 --branch release-${version} https://github.com/AvapnoHelpingHand/coredns.git ./
+RUN git clone --recursive --depth 1 --branch v${version} https://github.com/AvapnoHelpingHand/coredns.git ./
 
 ENV CGO_ENABLED=1
 
