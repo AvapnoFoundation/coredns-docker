@@ -14,7 +14,8 @@ RUN git clone --recursive --depth 1 --branch v${version} https://github.com/Avap
 
 ENV CGO_ENABLED=1
 
-RUN echo "unbound:github.com/AvapnoHelpingHand/coredns-unbound" >> ./plugin.cfg
+RUN go get github.com/AvapnoHelpingHand/coredns-unbound && \
+    echo "unbound:github.com/AvapnoHelpingHand/coredns-unbound" >> ./plugin.cfg
 
 RUN go generate && make
 
