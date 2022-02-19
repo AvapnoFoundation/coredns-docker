@@ -1,4 +1,4 @@
-FROM golang:3.13-alpine as builder
+FROM golang:alpine3.13 as builder
 
 ARG version=1.15.0
 
@@ -19,7 +19,7 @@ RUN echo "unbound:github.com/AvapnoHelpingHand/coredns-unbound" >> ./plugin.cfg
 RUN go generate && make
 
 
-FROM golang:3.13-alpine as app
+FROM golang:alpine3.13 as app
 
 WORKDIR /coredns
 
