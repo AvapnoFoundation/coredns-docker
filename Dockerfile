@@ -12,12 +12,10 @@ WORKDIR /coredns
 
 RUN git clone --recursive --depth 1 --branch v${version} https://github.com/AvapnoHelpingHand/coredns.git ./
 
-ENV CGO_ENABLED=1
-
 RUN go get github.com/AvapnoHelpingHand/coredns-unbound && \
     echo "unbound:github.com/AvapnoHelpingHand/coredns-unbound" >> ./plugin.cfg
 
-RUN go generate && make
+RUN go generate && make CGO_ENABLED=1
 
 
 FROM golang:alpine3.13 as app
