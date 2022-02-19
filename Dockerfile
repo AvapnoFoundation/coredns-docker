@@ -21,8 +21,6 @@ RUN go generate && make
 
 FROM alpine:3.13 as app
 
-RUN apk add --no-cache libunbound8
-
 WORKDIR /coredns
 
 COPY --from=builder /coredns/coredns /coredns
