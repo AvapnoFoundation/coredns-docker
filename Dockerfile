@@ -1,6 +1,6 @@
 FROM golang:alpine3.13 as builder
 
-ARG version=1.8.3
+ARG version=1.9.0
 
 RUN apk update && apk add --no-cache \
   `# install tools` \
@@ -26,6 +26,6 @@ WORKDIR /coredns
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 COPY --from=builder /coredns/coredns /coredns
 
-RUN apk update && apk add --no-cache tini unbound
+RUN apk update && apk add --no-cache tini unbound-libs
 
 ENTRYPOINT ["tini", "--", "/coredns/coredns"]
