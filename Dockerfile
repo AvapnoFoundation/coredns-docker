@@ -24,9 +24,8 @@ FROM golang:alpine3.13 as app
 WORKDIR /coredns
 
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
-COPY --from=builder /usr/lib/libunbound.so /usr/lib/
 COPY --from=builder /coredns/coredns /coredns
 
-RUN apk update && apk add --no-cache tini
+RUN apk update && apk add --no-cache tini unbound
 
 ENTRYPOINT ["tini", "--", "/coredns/coredns"]
