@@ -17,11 +17,13 @@ RUN go get github.com/AvapnoHelpingHand/coredns-unbound && \
 
 RUN go generate && make CGO_ENABLED=1
 
+RUN apk update && apk add --no-cache ca-certificates && update-ca-certificates
 
 FROM golang:alpine3.13 as app
 
 WORKDIR /coredns
 
+COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 COPY --from=builder /coredns/coredns /coredns
 
 RUN apk update && apk add --no-cache tini
