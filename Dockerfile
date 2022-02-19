@@ -1,12 +1,14 @@
 FROM golang:alpine3.13 as builder
 
-ARG version=1.8.4
+ARG version=1.8.3
 
 RUN apk update && apk add --no-cache \
   `# install tools` \
   git gcc musl-dev make \
   `# install dependencies` \
-  linux-headers unbound-dev expat-dev
+  linux-headers unbound-dev expat-dev ca-certificates
+
+RUN update-ca-certificates
 
 WORKDIR /coredns
 
@@ -17,13 +19,12 @@ RUN go get github.com/AvapnoHelpingHand/coredns-unbound && \
 
 RUN go generate && make CGO_ENABLED=1
 
-RUN apk update && apk add --no-cache unbound ca-certificates && update-ca-certificates
-
 FROM golang:alpine3.13 as app
 
 WORKDIR /coredns
 
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
+COPY --from=builder /usr/lib/libunbound.so /usr/lib/
 COPY --from=builder /coredns/coredns /coredns
 
 RUN apk update && apk add --no-cache tini
