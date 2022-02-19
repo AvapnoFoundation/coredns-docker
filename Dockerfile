@@ -28,4 +28,4 @@ COPY --from=builder /coredns/coredns /coredns
 
 RUN apk update && apk add --no-cache tini
 
-ENTRYPOINT ["tini", "--"]
+ENTRYPOINT ["tini", "--", "coredns"]
