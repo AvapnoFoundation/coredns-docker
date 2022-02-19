@@ -4,7 +4,7 @@ ARG version=1.8.6
 
 RUN apk update && apk add --no-cache \
   `# install tools` \
-  git make \
+  git gcc make \
   `# install dependencies` \
   linux-headers openssl-dev unbound-dev expat-dev
 
