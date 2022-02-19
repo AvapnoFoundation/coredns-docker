@@ -4,7 +4,7 @@ ARG version=1.15.0
 
 RUN apk update && apk add --no-cache \
   `# install tools` \
-  git golang make \
+  git make \
   `# install dependencies` \
   linux-headers openssl-dev unbound-dev expat-dev
 
