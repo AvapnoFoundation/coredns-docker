@@ -6,7 +6,7 @@ RUN apk update && apk add --no-cache \
   `# install tools` \
   git gcc musl-dev make \
   `# install dependencies` \
-  linux-headers openssl-dev unbound-dev expat-dev
+  linux-headers unbound-dev expat-dev
 
 WORKDIR /coredns
 
@@ -17,7 +17,7 @@ RUN go get github.com/AvapnoHelpingHand/coredns-unbound && \
 
 RUN go generate && make CGO_ENABLED=1
 
-RUN apk update && apk add --no-cache ca-certificates && update-ca-certificates
+RUN apk update && apk add --no-cache unbound ca-certificates && update-ca-certificates
 
 FROM golang:alpine3.13 as app
 
