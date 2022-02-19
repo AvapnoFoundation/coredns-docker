@@ -1,6 +1,6 @@
 FROM golang:alpine3.13 as builder
 
-ARG version=1.8.6
+ARG version=1.8.7
 
 RUN apk update && apk add --no-cache \
   `# install tools` \
